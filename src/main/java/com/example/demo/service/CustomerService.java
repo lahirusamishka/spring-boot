@@ -1,16 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.CustomerDTO;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 
 public interface CustomerService {
-    ArrayList<CustomerDTO> getAll();
-
-    CustomerDTO getCustomer(Long id);
-
-    boolean delete(Long customerId);
-
-    boolean save(CustomerDTO customerDTO);
+    ResponseEntity<?> getAll();
+    ResponseEntity<?> getCustomer(Long id);
+    ResponseEntity<?> delete(Long customerId);
+    ResponseEntity<?> save(CustomerDTO customerDTO);
 
 }

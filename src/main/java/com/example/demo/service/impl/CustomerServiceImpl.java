@@ -5,6 +5,8 @@ import com.example.demo.entity.Customer;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public ArrayList<CustomerDTO> getAll() {
+    public ResponseEntity<?> getAll() {
 
         ArrayList<CustomerDTO> customerDTOS = new ArrayList<>();
 
@@ -32,11 +34,11 @@ public class CustomerServiceImpl implements CustomerService {
 
             customerDTOS.add(customerDTO);
         }
-        return customerDTOS;
+        return new ResponseEntity<>(customerDTOS, HttpStatus.OK);
     }
 
     @Override
-    public CustomerDTO getCustomer(Long id) {
+    public ResponseEntity<?> getCustomer(Long id) {
         Customer customer =  customerRepository.findById(id).get();
 
         CustomerDTO customerDTO = new CustomerDTO();
@@ -46,17 +48,17 @@ public class CustomerServiceImpl implements CustomerService {
         customerDTO.setName(customer.getName());
         customerDTO.setContact(customer.getContact());
 
-        return customerDTO;
+        return new ResponseEntity<>(customerDTO, HttpStatus.OK);
     }
 
     @Override
-    public boolean delete(Long customerId) {
+    public ResponseEntity<?> delete(Long customerId) {
         customerRepository.deleteById(customerId);
-        return true;
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @Override
-    public boolean save(CustomerDTO customerDTO) {
+    public ResponseEntity<?> save(CustomerDTO customerDTO) {
         Customer customer = new Customer();
 
         customer.setId(customerDTO.getId());
@@ -66,7 +68,6 @@ public class CustomerServiceImpl implements CustomerService {
 
         customerRepository.save(customer);
 
-        return true;
-
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 }
