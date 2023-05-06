@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.constant.CustomerStatus;
 import com.example.demo.dto.CustomerDTO;
 import com.example.demo.entity.Customer;
 import com.example.demo.repository.CustomerRepository;
@@ -65,6 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setAddress(customerDTO.getAddress());
         customer.setName(customerDTO.getName());
         customer.setContact(customerDTO.getContact());
+        customer.setStatus(CustomerStatus.CREATE);
 
         customerRepository.save(customer);
 
